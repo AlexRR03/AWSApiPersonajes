@@ -1,6 +1,6 @@
 @AWSApiPersonajes_HostAddress = http://localhost:5172
 
-GET {{AWSApiPersonajes_HostAddress}}/weatherforecast/
+GET {{AWSApiPersonajes_HostAddress}}/personajes/
 Accept: application/json
 
 ###
