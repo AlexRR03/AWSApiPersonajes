@@ -5,6 +5,19 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Add cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsEnabled",
+        options =>
+        {
+            options.WithOrigins("*")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+                
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -21,6 +34,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 }
+app.UseCors("CorsEnabled");
 app.MapScalarApiReference();
 app.MapOpenApi();
 app.UseHttpsRedirection();
