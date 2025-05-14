@@ -39,5 +39,15 @@ namespace AWSApiPersonajes.Controllers
             await this.repo.CreatePersonajeAsync(personaje.Nombre, personaje.Imagen);
             return Ok();
         }
+        [HttpPut]
+        public async Task<ActionResult> Update( Personaje personaje)
+        {
+            if (personaje == null)
+            {
+                return BadRequest();
+            }
+            await this.repo.UpdatePersonajeAsync(personaje.IdPersonaje, personaje.Nombre, personaje.Imagen);
+            return Ok();
+        }
     }
 }

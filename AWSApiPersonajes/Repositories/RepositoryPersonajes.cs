@@ -13,8 +13,8 @@ namespace AWSApiPersonajes.Repositories
         }
         public async Task<int> GetMaxIdAsync()
         {
-          return await this.context.Personajes.MaxAsync(x => x.IdPersonaje) +1;
-            
+            return await this.context.Personajes.MaxAsync(x => x.IdPersonaje) + 1;
+
         }
 
         public async Task<List<Personaje>> GetPersonajesAsync()
@@ -25,7 +25,7 @@ namespace AWSApiPersonajes.Repositories
         {
             return await this.context.Personajes.FirstOrDefaultAsync(x => x.IdPersonaje == id);
         }
-        public async Task CreatePersonajeAsync( string nombre, string imagen)
+        public async Task CreatePersonajeAsync(string nombre, string imagen)
         {
             Personaje personaje = new Personaje();
             personaje.IdPersonaje = await this.GetMaxIdAsync();
@@ -33,6 +33,17 @@ namespace AWSApiPersonajes.Repositories
             personaje.Imagen = imagen;
             await this.context.Personajes.AddAsync(personaje);
             await this.context.SaveChangesAsync();
+        }
+        public async Task UpdatePersonajeAsync(int id, string nombre, string imagen)
+        {
+
+            Personaje personaje = await this.FindPersonajeAsync(id);
+            if (personaje != null)
+            {
+                personaje.Nombre = nombre;
+                personaje.Imagen = imagen;
+                await this.context.SaveChangesAsync();
+            }
         }
     }
 }
